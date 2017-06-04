@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<addon
+    id="plugin.video.wslivetv"
+    version="3.1.9"
+    name="wslivetv"
+    provider-name="WZS">
+    <requires>
+        <import addon="xbmc.python"                 version="2.1.0" />
+        <import addon="script.module.googleapi"     version="1.4.2" />
+        <import addon="script.common.plugin.cache"  version="2.5.5" />
+        <import addon="script.module.requests"      version="2.12.4"/>
+    </requires>
+    <extension
+        point="xbmc.python.pluginsource" library="default.py">
+        <provides>video</provides>
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <summary lang="en">Live Arabic Youtube Streams Plugin</summary>
+        <description lang="en">This plugin retrieves the current live Arabic channels as well as some select english channels from Youtube. It saves the live TV channels DB locally and updates it on plugin start. The retrieved channels vary based on what channel is live at the time of plugin run. 
+Enjoy the live channels, and provide your feedback for continuous improvement
+        </description>
+        <disclaimer lang="en">channels may not be avialble all the time</disclaimer>
+        <assets>
+            <icon>icon.png</icon>
+            <fanart>fanart.jpg</fanart>
+        </assets>
+        <news>Create categories, and context menu</news>
+    </extension>
+</addon>
