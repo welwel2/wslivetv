@@ -102,8 +102,8 @@ class WSliveTV(Addon):
 
         # set path and add context menu if avialable
         if 'url' in self.chans[chan]:
-            self.log(msg='Found URL, strm=%s'%strm, level=xbmc.LOGDEBUG)
             path = self.chans[chan]['url'][int(strm)][1]
+            self.log(msg='Found URL, strm=%s, path=%s'%(strm, path), level=xbmc.LOGDEBUG)
 
         menu_items = self.add_context_menu(chan=chan)
         list_item.addContextMenuItems(menu_items)
@@ -112,16 +112,18 @@ class WSliveTV(Addon):
             title = '%s - %s' %(self.chans[chan]['name'], self.chans[chan]['category'])
         else:
             title = self.chans[chan]['name']
+            self.log(msg='channel title=%s'%(title), level=xbmc.LOGNOTICE)
 
-        if lv:
-            ft = title
-            i = 1
-            while title in self.titles:
-                title = '%s %d'%(ft, i)
-                i = i + 1
+            if lv:
+                # append a number to channel name if name exsits
+                ft = title
+                i = 1
+                while title in self.titles:
+                    title = '%s %d'%(ft, i)
+                    i = i + 1
             
-            self.chans[chan]['name'] = title
-            self.titles.append(title)
+                self.chans[chan]['name'] = title
+                self.titles.append(title)
 
         # Set additional info for the list item.
         list_item.setInfo('video', {'title': title, 
@@ -244,7 +246,9 @@ class WSliveTV(Addon):
             self.log(msg='context_menu_items %d' % len(menu_items), level=xbmc.LOGDEBUG)
             for i, url in enumerate(self.chans[chan]['url']):
                 encoded_url = self.build_plugin_url({'action':'play', 'video':self.chans[chan]['name'], 'strm':i} )
-                label  = 'Play %dp Stream Format' % url[0]
+                label  = 'Play %sp Stream Format' % url[0]
+                if url[0] == 4000:
+                    label  = 'Play main Stream Format'
                 action = 'PlayMedia(%s)'    % encoded_url
                 menu_items.append((label, action))
         return menu_items

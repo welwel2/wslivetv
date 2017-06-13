@@ -22,8 +22,8 @@ def get_info(url, video_id, meta_info=None):
                   'images': {},
                   'subtitles': []}
     meta_info = meta_info if meta_info else _meta_info
-
-    streams = []
+    dash =     {'url': url, 'sort':[4000, 0]}
+    streams = [dash]
     re_line = re.compile(r'RESOLUTION=(?P<width>\d+)x(?P<height>\d+)')
     re_itag = re.compile(r'/itag/(?P<itag>\d+)')
     for i in range(len(lines)):
@@ -57,7 +57,8 @@ def get_info(url, video_id, meta_info=None):
     return streams
 
 def watch(video_id, reason=u'', meta_info=None):
-    print 'ws - watch'
+    if __name__ == '__main__':
+        print 'ws - watch'
     headers = {'Host': 'www.youtube.com',
                'Connection': 'keep-alive',
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36',
@@ -99,7 +100,8 @@ def watch(video_id, reason=u'', meta_info=None):
 
 
 def get_video_streams(video_id):
-    print 'ws get_video_streams'
+    if __name__ == '__main__':
+        print 'ws get_video_streams'
 
     video_streams = _method_get_video_info(video_id)
     if not isinstance(video_streams, list):
@@ -127,7 +129,8 @@ def get_video_streams(video_id):
     return video_streams
 
 def _method_get_video_info(video_id):
-    print 'ws - _method_get_video_info'
+    if __name__ == '__main__':
+        print 'ws - _method_get_video_info'
     headers = {'Host': 'www.youtube.com',
                'Connection': 'keep-alive',
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36',
@@ -184,6 +187,8 @@ def _method_get_video_info(video_id):
     if params.get('live_playback', '0') == '1':
         url = params.get('hlsvp', '')
         if url:
+            if __name__ == '__main__':
+                print 'url from hlsvp %s' %url
             return get_info(url, video_id, meta_info=meta_info)
         pass
 
@@ -191,7 +196,7 @@ if __name__ == '__main__':
 #    videoids = eval(open('videoids').read())
 #    print (len(videoids))
 #    for video_id in videoids :
-    video_id ='zT4sNI9CiRk'
+    video_id ='EeCQQnRoccU'
 #    url = 'https://www.youtube.com/get_video_info'
 #        print('processing video id %s' %video_id)
     info = get_video_streams(video_id)
