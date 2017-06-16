@@ -21,7 +21,7 @@ os.system(r'git add *')
 
 print "issue git command to add modified files"
 comment = raw_input('enter a good description for your changes: ')
-os.system(r'git commit -m %s'%comment)
+os.system(r'git commit -m "%s"'%comment)
 #update_remote(os.getcwd(), 'ltv')
 
 print "call script to update wsrepo repository on github server"
