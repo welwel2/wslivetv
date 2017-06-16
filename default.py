@@ -247,7 +247,7 @@ class WSliveTV(Addon):
             for i, url in enumerate(self.chans[chan]['url']):
                 encoded_url = self.build_plugin_url({'action':'play', 'video':self.chans[chan]['name'], 'strm':i} )
                 label  = 'Play %sp Stream Format' % url[0]
-                if url[0] == 4000:
+                if url[0] == 7:
                     label  = 'Play main Stream Format'
                 action = 'PlayMedia(%s)'    % encoded_url
                 menu_items.append((label, action))

@@ -22,7 +22,7 @@ def get_info(url, video_id, meta_info=None):
                   'images': {},
                   'subtitles': []}
     meta_info = meta_info if meta_info else _meta_info
-    dash =     {'url': url, 'sort':[4000, 0]}
+    dash =     {'url': url, 'sort':[7, 0]}
     streams = [dash]
     re_line = re.compile(r'RESOLUTION=(?P<width>\d+)x(?P<height>\d+)')
     re_itag = re.compile(r'/itag/(?P<itag>\d+)')
