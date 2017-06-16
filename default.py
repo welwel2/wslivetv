@@ -250,7 +250,7 @@ class WSliveTV(Addon):
                 if url[0] == 7:
                     label  = 'Play main Stream Format'
                 action = 'PlayMedia(%s)'    % encoded_url
-                menu_items.append((label, action))
+                menu_items.append((label, action)) 
         return menu_items
      
     def remove_channel(self, chan):

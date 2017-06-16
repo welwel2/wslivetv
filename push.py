@@ -10,6 +10,7 @@ sys.path.append(os.path.split(crn)[0])
 #print sys.path
 from cr import update_remote
 
+#os.system(r'python clean.py')
 update_remote(os.getcwd(), 'ltv')
 
 #os.system(r'python %s'%crn)
