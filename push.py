@@ -16,8 +16,12 @@ os.system(r'python clean.py')
 print "issue git command to remove unwated files"
 os.system(r'git rm *.py[oc]')
 
-print "call update_remote to commit changes, and push to server"
-update_remote(os.getcwd(), 'ltv')
+print "issue git command to add modified files"
+os.system(r'git add *')
+
+print "issue git command to add modified files"
+os.system(r'git commit -m %s'%raw_input('enter a good description for your changes: '))
+#update_remote(os.getcwd(), 'ltv')
 
 print "call script to update wsrepo repository on github server"
 #os.system(r'python %s'%crn)
