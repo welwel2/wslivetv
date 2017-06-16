@@ -7,7 +7,7 @@ import os
 crn = r'C:\Users\220554\Documents\GitHub\wsrepo\_tools\cr.py'
 
 sys.path.append(os.path.split(crn)[0])
-print sys.path
+#print sys.path
 from cr import update_remote
 
 update_remote(os.getcwd(), 'ltv')
