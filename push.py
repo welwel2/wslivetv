@@ -27,6 +27,12 @@ os.system(r'git commit -m "%s"'%comment)
 print "issue git command to push changes to server"
 os.system(r'git push')
 
+print "issue git command to print status"
+os.system(r'git staus')
+
+print "issue git command to display log"
+os.system(r'git log --oneline')
+
 print "call script to update wsrepo repository on github server"
-#os.system(r'python %s'%crn)
+os.system(r'python %s'%crn)
 
