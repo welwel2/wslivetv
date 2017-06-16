@@ -12,5 +12,5 @@ from cr import update_remote
 
 update_remote(os.getcwd(), 'ltv')
 
-os.system(r'python %s'%crn)
+#os.system(r'python %s'%crn)
 
