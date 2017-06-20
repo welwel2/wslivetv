@@ -20,7 +20,7 @@ print "issue git command to add modified files"
 os.system(r'git add *')
 
 print "issue git command to commit changes"
-comment = raw_input('enter a good description for your changes: ')
+comment = raw_input('Enter a good description for your changes: ')
 os.system(r'git commit -m "%s"'%comment)
 #update_remote(os.getcwd(), 'ltv')
 
@@ -34,5 +34,5 @@ print "issue git command to display log"
 os.system(r'git log --oneline')
 
 print "call script to update wsrepo repository on github server"
-#os.system(r'python %s'%crn)
+os.system(r'python %s'%crn)
 

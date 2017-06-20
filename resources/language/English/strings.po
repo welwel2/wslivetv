@@ -36,6 +36,10 @@ msgctxt "#30556"
 msgid "Modify filters"
 msgstr ""
 
+msgctxt "#30557"
+msgid "Modify exclusions"
+msgstr ""
+
 msgctxt "#30553"
 msgid "Purge and updata channels"
 msgstr ""

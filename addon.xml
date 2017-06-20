@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
     id="plugin.video.wslivetv"
-    version="3.1.12"
+    version="3.1.13"
     name="wslivetv"
     provider-name="WZS">
     <requires>
@@ -24,6 +24,6 @@ Enjoy the live channels, and provide your feedback for continuous improvement
             <icon>icon.png</icon>
             <fanart>fanart.jpg</fanart>
         </assets>
-        <news>Create categories, and context menu</news>
+        <news>manage excludes</news>
     </extension>
 </addon>

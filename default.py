@@ -384,7 +384,7 @@ class WSliveTV(Addon):
         elif var == 'filter':
             data = self.my_yt.filters
         elif var == 'exclude':
-            data == self.my_yt.excludes
+            data = [self.my_yt.excludes]
         else:
             # modify category
             data = self.my_yt.categories[var]
@@ -414,6 +414,8 @@ class WSliveTV(Addon):
                 data.append(modified_name)
             data.remove(item_name)
         data.remove(add_new)
+        if var == 'exclude':
+            self.my_yt.excludes = modified_name
         self.my_yt.update_chansdb()
         
         
