@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*
 
 # the following 3 import lines are required to support the youtube api request
-from apiclient.discovery import build
-from apiclient.errors import HttpError
+from googleapiclient.discovery import build
+from googleapiclient.errors import HttpError
 from oauth2client.tools import argparser
 import re
 
