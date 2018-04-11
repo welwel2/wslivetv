@@ -5,7 +5,7 @@ from video_format import FORMAT
 import urlparse
 
 def get_info(url, video_id, meta_info=None):
-    #print 'ws get_info, url = %s'%url
+    print 'ws get_info, url = %s, video_id = %s'%(url, video_id)
     headers = {'Host': 'manifest.googlevideo.com',
                'Connection': 'keep-alive',
                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.143 Safari/537.36',
@@ -34,8 +34,8 @@ def get_info(url, video_id, meta_info=None):
             re_itag_match = re.search(re_itag, line)
             if re_itag_match:
                 itag = re_itag_match.group('itag')
-                if __name__ == '__main__':
-                    print 'itag = ', itag
+#                if __name__ == '__main__':
+#                    print 'itag = ', itag
                 yt_format = FORMAT.get(itag, None)
                 if not yt_format:
                     raise Exception('unknown yt_format for video id %s itag "%s" line %s' % (video_id, itag, line))
@@ -44,11 +44,11 @@ def get_info(url, video_id, meta_info=None):
                 height = int(re_match.group('height'))
                 video_stream = {'url': line,
                                 'meta': meta_info}
-                if __name__ == '__main__':
-                    print 'video_stream before = ', video_stream
+#                if __name__ == '__main__':
+#                    print 'video_stream before = ', video_stream
                 video_stream.update(yt_format)
-                if __name__ == '__main__':
-                    print 'video_stream after = ', video_stream
+#                if __name__ == '__main__':
+#                    print 'video_stream after = ', video_stream
                 streams.append(video_stream)
                 #print 'streams = ', streams
                 pass
@@ -95,8 +95,9 @@ def watch(video_id, reason=u'', meta_info=None):
     re_match_hlsvp = re.search(r'\"hlsvp\"[^:]*:[^"]*\"(?P<hlsvp>[^"]*\")', html)
     if re_match_hlsvp:
         hlsvp = urllib.unquote(re_match_hlsvp.group('hlsvp')).replace('\/', '/')
-        #print('call get_info - url %s' %hlsvp)
-        return get_info(hlsvp, video_id, meta_info=meta_info)
+#        print('return %s' %hlsvp)
+        return hlsvp
+#        return get_info(hlsvp, video_id, meta_info=meta_info)
 
 
 def get_video_streams(video_id):
@@ -104,27 +105,28 @@ def get_video_streams(video_id):
         print 'ws get_video_streams'
 
     video_streams = _method_get_video_info(video_id)
-    if not isinstance(video_streams, list):
+    if not isinstance(video_streams, basestring):
+        print video_streams
         # try again
         video_streams = _method_get_video_info(video_id)
-        if not isinstance(video_streams, list):
-            return []
+        if not isinstance(video_streams, basestring):
+            return ''
     
     # update title
-    for video_stream in video_streams:
-        if __name__ == '__main__':
-            print video_stream
-        if 'title' in video_stream:
-            title = '[B]%s[/B] (%s;%s / %s@%d)' % (
-                video_stream['title'], video_stream['container'], video_stream['video']['encoding'],
-                video_stream['audio']['encoding'], video_stream['audio']['bitrate'])
-            video_stream['title'] = title
-        pass
+#    for video_stream in video_streams:
+#        if __name__ == '__main__':
+#            print video_stream
+#        if 'title' in video_stream:
+#            title = '[B]%s[/B] (%s;%s / %s@%d)' % (
+#                video_stream['title'], video_stream['container'], video_stream['video']['encoding'],
+#                video_stream['audio']['encoding'], video_stream['audio']['bitrate'])
+#            video_stream['title'] = title
+#        pass
 
-    def _sort_stream_data(_stream_data):
-        return _stream_data.get('sort', 0)
+#    def _sort_stream_data(_stream_data):
+#        return _stream_data.get('sort', 0)
     
-    video_streams = sorted(video_streams, key=_sort_stream_data, reverse=True)
+#    video_streams = sorted(video_streams, key=_sort_stream_data, reverse=True)
 
     return video_streams
 
@@ -189,15 +191,16 @@ def _method_get_video_info(video_id):
         if url:
             if __name__ == '__main__':
                 print 'url from hlsvp %s' %url
-            return get_info(url, video_id, meta_info=meta_info)
+#               return get_info(url, video_id, meta_info=meta_info)
+                return url
         pass
 
 if __name__ == '__main__':
 #    videoids = eval(open('videoids').read())
 #    print (len(videoids))
 #    for video_id in videoids :
-    video_id ='EeCQQnRoccU'
+    video_id ='BylLTX05jSY'
 #    url = 'https://www.youtube.com/get_video_info'
 #        print('processing video id %s' %video_id)
     info = get_video_streams(video_id)
-    print(info[0]['url'])
+#    print(info[0]['url'])

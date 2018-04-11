@@ -102,8 +102,9 @@ class WSliveTV(Addon):
 
         # set path and add context menu if avialable
         if 'url' in self.chans[chan]:
-            path = self.chans[chan]['url'][int(strm)][1]
-            self.log(msg='Found URL, strm=%s, path=%s'%(strm, path), level=xbmc.LOGDEBUG)
+            #path = self.chans[chan]['url'][int(strm)][1]
+            path = self.chans[chan]['url']
+            self.log(msg='Found URL, path=%s'%path , level=xbmc.LOGDEBUG)
 
         menu_items = self.add_context_menu(chan=chan)
         list_item.addContextMenuItems(menu_items)
@@ -136,12 +137,16 @@ class WSliveTV(Addon):
                           'icon':   thumb_url,
                           'fanart': thumb_url})
 
+        self.log(msg='Path is set to %s'%path , level=xbmc.LOGNOTICE)
         list_item.setPath(path=path)
         list_item.setLabel2(self.chans[chan]['label'])
 
         # Set 'IsPlayable' property to 'true'.
         # This is mandatory for playable items!
         list_item.setProperty('IsPlayable', 'true')
+        list_item.setMimeType('application/xml+dash')
+        list_item.setProperty('inputstreamaddon', 'inputstream.adaptive')
+        list_item.setProperty('inputstream.adaptive.manifest_type', 'hls')
 
         if lv:
             # if called with lv -list video- 
@@ -246,8 +251,10 @@ class WSliveTV(Addon):
             self.log(msg='context_menu_items %d' % len(menu_items), level=xbmc.LOGDEBUG)
             for i, url in enumerate(self.chans[chan]['url']):
                 encoded_url = self.build_plugin_url({'action':'play', 'video':self.chans[chan]['name'], 'strm':i} )
-                label  = 'Play %sp Stream Format' % url[0]
-                if url[0] == 7:
+                label  = 'Play %sp Stream Format' % url
+#                label  = 'Play %sp Stream Format' % url[0]
+#               if url[0] == 7:
+                if url:
                     label  = 'Play main Stream Format'
                 action = 'PlayMedia(%s)'    % encoded_url
                 menu_items.append((label, action)) 
@@ -444,22 +451,24 @@ class WSliveTV(Addon):
                 msg = 'URL not found attempting to retrieve it ...'
                 self.log(msg=msg, level=xbmc.LOGDEBUG)
                 streams = get_video_streams(chan)
-                if len(streams) == 0:
+                if not streams:
                     dialog = xbmcgui.Dialog()
                     ok = dialog.ok('WS Live TV - play_video', 'channel %s is offline' % name)
                     return
                 url_list = []
 
                 #save alternative stream to chans dictionary
-                for stream in streams:
-                    url_list.append((stream['sort'][0], stream['url']))
-                self.chans[chan]['url'] = url_list
+ #               for stream in streams:
+ #                   url_list.append((stream['sort'][0], stream['url']))
+#                self.chans[chan]['url'] = url_list
+                self.chans[chan]['url'] = streams
 
                 # save current time in url_ts
                 self.chans[chan]['url_ts'] = current_time
                 
                 # save db with the change
-                self.update_chan_url(chan, url_list)
+                self.update_chan_url(chan, streams)
+#                self.update_chan_url(chan, url_list)
 
 #        # Pass the item to the Kodi player.
         self.resolve_url(chan, strm)
